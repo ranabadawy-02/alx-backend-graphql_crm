@@ -1,7 +1,7 @@
 from django.db import models
 
 class Customer(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)    # ✅ max_length=100
     email = models.EmailField(unique=True)
     phone = models.CharField(max_length=20, blank=True, null=True)
 
@@ -10,7 +10,7 @@ class Customer(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=100)    # ✅ max_length=100
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.PositiveIntegerField(default=0)
 
@@ -25,7 +25,6 @@ class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True)
 
     def save(self, *args, **kwargs):
-        # Calculate total_amount
         self.total_amount = sum(product.price for product in self.products.all())
         super().save(*args, **kwargs)
 
