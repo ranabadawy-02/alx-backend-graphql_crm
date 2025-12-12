@@ -5,6 +5,41 @@ from django.db import IntegrityError, transaction
 import re
 from django.utils import timezone
 
+import graphene
+from graphene_django import DjangoObjectType
+from graphene_django.filter import DjangoFilterConnectionField
+from .models import Customer, Product, Order
+from .filters import CustomerFilter, ProductFilter, OrderFilter
+
+# -----------------
+# Types (Relay-enabled)
+# -----------------
+class CustomerType(DjangoObjectType):
+    class Meta:
+        model = Customer
+        interfaces = (graphene.relay.Node,)
+        filterset_class = CustomerFilter
+
+class ProductType(DjangoObjectType):
+    class Meta:
+        model = Product
+        interfaces = (graphene.relay.Node,)
+        filterset_class = ProductFilter
+
+class OrderType(DjangoObjectType):
+    class Meta:
+        model = Order
+        interfaces = (graphene.relay.Node,)
+        filterset_class = OrderFilter
+
+# -----------------
+# Queries
+# -----------------
+class Query(graphene.ObjectType):
+    all_customers = DjangoFilterConnectionField(CustomerType)
+    all_products = DjangoFilterConnectionField(ProductType)
+    all_orders = DjangoFilterConnectionField(OrderType)
+
 # -------------------
 # Types
 # -------------------
