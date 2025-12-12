@@ -9,22 +9,32 @@ from django.utils import timezone
 # Types
 # -------------------
 
+import graphene
+from graphene_django import DjangoObjectType
+from .models import Customer, Product, Order
+
+# Types
 class CustomerType(DjangoObjectType):
     class Meta:
         model = Customer
         fields = "__all__"
-
 
 class ProductType(DjangoObjectType):
     class Meta:
         model = Product
         fields = "__all__"
 
-
 class OrderType(DjangoObjectType):
     class Meta:
         model = Order
         fields = "__all__"
+
+# Queries
+class Query(graphene.ObjectType):
+    all_customers = graphene.List(CustomerType)
+
+    def resolve_all_customers(root, info):
+        return Customer.objects.all()
 
 # -------------------
 # Mutations
