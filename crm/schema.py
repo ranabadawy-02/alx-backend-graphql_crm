@@ -217,3 +217,5 @@ Repo:
 
 GitHub repository: alx-backend-graphql_crm
 File: crm/schema.py, crm/cron.py, crm/settings.py
+
+from crm.models import Product
