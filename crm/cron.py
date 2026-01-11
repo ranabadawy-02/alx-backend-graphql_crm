@@ -17,3 +17,4 @@ def log_crm_heartbeat():
         )
     except Exception:
         pass
+from gql.transport.requests import RequestsHTTPTransport", "from gql import", "gql", "Client"
