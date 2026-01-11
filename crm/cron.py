@@ -1,6 +1,6 @@
 from datetime import datetime
 import requests
-
+updateLowStockProducts
 def log_crm_heartbeat():
     timestamp = datetime.now().strftime("%d/%m/%Y-%H:%M:%S")
     message = f"{timestamp} CRM is alive\n"
